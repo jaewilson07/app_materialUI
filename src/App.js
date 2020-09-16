@@ -1,14 +1,29 @@
 import React from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Header from './components/header/header';
+import { ThemeProvider } from '@material-ui/styles';
+
+import Header from './components/ui/header/header';
 import theme from './components/ui/theme';
+
+import { HEADER } from './constants';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header /> <h1>Hello</h1>
+      <Router>
+        <Header />
+        <Switch>
+          {HEADER.map((heading, index) => (
+            <Route
+              key={index}
+              exact
+              path={heading.path}
+              component={heading.component}
+            ></Route>
+          ))}
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }
